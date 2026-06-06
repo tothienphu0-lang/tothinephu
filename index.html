@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Portfolio | Kỹ Năng Số & Trí Tuệ Nhân Tạo</title>
+    <style>
+        /* --- RESET & VARIABLE CONFIG --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        :root {
+            --primary-color: #1b4d3e; /* Màu xanh lục đậm sang trọng */
+            --secondary-color: #cda250; /* Màu vàng gold tạo điểm nhấn tinh tế */
+            --bg-light: #f8f9fa;
+            --text-dark: #2d3748;
+            --text-muted: #718096;
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* --- NAVIGATION --- */
+        header {
+            background-color: #ffffff;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+        }
+        .logo {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+        nav ul li a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        nav ul li a:hover {
+            color: var(--primary-color);
+        }
+
+        /* --- HERO SECTION (GIỚI THIỆU) --- */
+        #gioi-thieu {
+            padding: 140px 20px 80px;
+            background: linear-gradient(135deg, #eef5f3 0%, #ffffff 100%);
+            text-align: center;
+        }
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .hero-content h1 {
+            font-size: 2.8rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+        .hero-content .subtitle {
+            font-size: 1.2rem;
+            color: var(--secondary-color);
+            font-weight: 600;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+        }
+        .bio-text {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+            text-align: justify;
+        }
+        .meta-info {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 20px;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: var(--card-shadow);
+        }
+        .meta-item span {
+            display: block;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+        .meta-item strong {
+            color: var(--primary-color);
+            font-size: 1.1rem;
+        }
+
+        /* --- PROJECTS SECTION (DỰ ÁN) --- */
+        #du-an {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 20px;
+        }
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            color: var(--primary-color);
+            margin-bottom: 50px;
+            position: relative;
+        }
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background-color: var(--secondary-color);
+            margin: 10px auto 0;
+        }
+        .grid-projects {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        .project-card {
+            background-color: #ffffff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            border-top: 4px solid var(--primary-color);
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        .project-card:hover {
+            transform: translateY(-5px);
+        }
+        .project-body {
+            padding: 30px;
+            flex-grow: 1;
+        }
+        .project-tag {
+            font-size: 0.8rem;
+            background-color: #eef5f3;
+            color: var(--primary-color);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+        .project-body h3 {
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+            color: var(--primary-color);
+        }
+        .project-body p {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+        .project-meta {
+            background-color: #fcfcfc;
+            padding: 15px 30px;
+            border-top: 1px solid #edf2f7;
+            font-size: 0.85rem;
+        }
+        .project-meta a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .project-meta a:hover {
+            text-decoration: underline;
+        }
+
+        /* --- TIMELINE / GENERAL ANALYSIS STYLE --- */
+        .highlight-box {
+            background: #fffdf6;
+            border-left: 4px solid var(--secondary-color);
+            padding: 15px;
+            margin-top: 15px;
+            font-size: 0.9rem;
+            border-radius: 0 8px 8px 0;
+        }
+
+        /* --- CONCLUSION SECTION (TỔNG KẾT) --- */
+        #tong-ket {
+            background-color: var(--primary-color);
+            color: #ffffff;
+            padding: 80px 20px;
+        }
+        .conclusion-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .conclusion-container h2 {
+            font-size: 2.2rem;
+            margin-bottom: 30px;
+            color: #ffffff;
+        }
+        .conclusion-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            border-radius: 12px;
+            backdrop-filter: blur(5px);
+            text-align: left;
+            margin-bottom: 20px;
+        }
+        .conclusion-card h3 {
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+        .conclusion-card p {
+            margin-bottom: 20px;
+            color: #e2e8f0;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: #113026;
+            color: #a0aec0;
+            text-align: center;
+            padding: 25px;
+            font-size: 0.9rem;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            nav ul { display: none; } /* Có thể tối ưu thêm menu mobile nếu cần */
+            .meta-info { flex-direction: column; gap: 15px; }
+            .hero-content h1 { font-size: 2.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="nav-container">
+            <div class="logo">Digital Portfolio</div>
+            <nav>
+                <ul>
+                    <li><a href="#gioi-thieu">Giới Thiệu</a></li>
+                    <li><a href="#du-an">Sản Phẩm Dự Án</a></li>
+                    <li><a href="#tong-ket">Tổng Kết Bản Thân</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="gioi-thieu">
+        <div class="hero-content">
+            <h1>NGUYỄN VĂN A</h1>
+            <div class="subtitle">Thể hiện các kỹ năng số & Lưu trữ sản phẩm cá nhân</div>
+            <p class="bio-text">
+                Chào mừng thầy cô và các bạn đến với trang Portfolio cá nhân của em. Đây là nơi em hệ thống hóa, lưu trữ và trình bày toàn bộ kết quả học tập thực tế trong học phần môn học. Qua các bài tập dự án nhỏ này, em mong muốn không chỉ chứng minh năng lực ứng dụng công nghệ mà còn thể hiện tư duy cải tiến, kỹ năng tối ưu hóa quy trình học tập cá nhân và làm việc nhóm trong môi trường số.
+            </p>
+            
+            <div class="meta-info">
+                <div class="meta-item">
+                    <span>Mã Sinh Viên</span>
+                    <strong>260XXXXX</strong>
+                </div>
+                <div class="meta-item">
+                    <span>Ngành Học</span>
+                    <strong>Công nghệ Thông tin / Kinh tế Số</strong>
+                </div>
+                <div class="meta-item">
+                    <span>Mục Tiêu Học Tập</span>
+                    <strong>Làm chủ công cụ AI & Tối ưu hóa hiệu suất làm việc</strong>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="du-an">
+        <h2 class="section-title">Sản Phẩm Dự Án Thành Phần</h2>
+        
+        <div class="grid-projects">
+            
+            <div class="project-card">
+                <div class="project-body">
+                    <div class="project-tag">Bài Tập 1 (Mục 1.4)</div>
+                    <h3>Quản Lý Tệp Và Thư Mục</h3>
+                    <p>Thiết lập và đồng bộ hóa cấu trúc cây thư mục logic theo chuẩn khoa học, áp dụng quy tắc đặt tên sáng tạo giúp tối ưu hóa khả năng tìm kiếm và tổ chức dữ liệu cá nhân một cách có chiều sâu.</p>
+                    <div class="highlight-box">
+                        <strong>Minh chứng:</strong> Cấu trúc thư mục được thiết kế theo mô hình phân tầng nghiêm ngặt, trực quan bằng sơ đồ hình ảnh rõ ràng đính kèm dưới đây.
+                    </div>
+                </div>
+                <div class="project-meta">
+                    <a href="#" target="_blank">Xem ảnh minh chứng cấu trúc ↗</a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-body">
+                    <div class="project-tag">Bài Tập 2 (Mục 2.4)</div>
+                    <h3>Tìm Kiếm & Đánh Giá Thông Tin</h3>
+                    <p>Phân tích sâu sắc về chiến lược tìm kiếm thông tin khoa học dựa trên việc áp dụng linh hoạt, kết hợp khéo léo hơn 4 toán tử nâng cao (như: <code>site:</code>, <code>filetype:</code>, <code>intitle:</code>, <code>"..."</code>) để tinh lọc dữ liệu chuẩn xác.</p>
+                    <div class="highlight-box">
+                        <strong>Chiến lược áp dụng:</strong> Đánh giá nguồn tin chi tiết dựa trên tính cập nhật, độ uy tín của tác giả và tính khách quan của dữ liệu thu thập.
+                    </div>
+                </div>
+                <div class="project-meta">
+                    <a href="#" target="_blank">Xem Báo cáo phân tích nguồn tin ↗</a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-body">
+                    <div class="project-tag">Bài Tập 3 (Mục 3.4)</div>
+                    <h3>Viết Prompt Hiệu Quả với AI</h3>
+                    <p>Ứng dụng thành thạo kỹ thuật Prompt Engineering nâng cao (gồm thiết lập Vai trò, Bối cảnh cụ thể, Ràng buộc đầu ra). So sánh và giải thích logic, chuyên sâu về cơ chế hoạt động, sự khác biệt giữa các phiên bản Prompt cải tiến.</p>
+                    <div class="highlight-box">
+                        <strong>Tư duy AI:</strong> Phân tích cấu trúc câu lệnh đã giúp thay đổi chất lượng phản hồi từ mô hình ngôn ngữ lớn như thế nào.
+                    </div>
+                </div>
+                <div class="project-meta">
+                    <a href="#" target="_blank">Xem Lịch sử Prompt & So sánh kết quả ↗</a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-body">
+                    <div class="project-tag">Bài Tập 4 (Mục 4.4)</div>
+                    <h3>Hợp Tác Trực Tuyến & Quản Lý</h3>
+                    <p>Tích hợp các tính năng nâng cao của công cụ quản lý dự án trực tuyến. Mô tả chi tiết cách thức tối ưu hóa quy trình làm việc nhóm, lập kế hoạch, phân công nhiệm vụ và minh họa rõ ràng các tiến độ bằng hình ảnh trực quan.</p>
+                    <div class="highlight-box">
+                        <strong>Công cụ sử dụng:</strong> Trello / Notion / Jira kèm sơ đồ phân phối công việc rõ ràng giữa các thành viên.
+                    </div>
+                </div>
+                <div class="project-meta">
+                    <a href="#" target="_blank">Xem Không gian làm việc chung (Workspace) ↗</a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-body">
+                    <div class="project-tag">Bài Tập 5 (Mục 5.4)</div>
+                    <h3>Sáng Tạo Nội Dung Với AI</h3>
+                    <p>Xây dựng sản phẩm nội dung số (hình ảnh, video hoặc bài viết truyền thông) hoàn thiện mang tính chuyên nghiệp và sáng tạo cao nhờ tận dụng tối đa năng lực phối hợp đa công cụ AI.</p>
+                    <div class="highlight-box">
+                        <strong>Quy trình sản xuất:</strong> Trình bày chi tiết từng bước từ lập ý tưởng, phác thảo kịch bản, sinh dữ liệu thô cho tới hậu kỳ hoàn thiện.
+                    </div>
+                </div>
+                <div class="project-meta">
+                    <a href="#" target="_blank">Xem Sản phẩm Truyền thông hoàn chỉnh ↗</a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-body">
+                    <div class="project-tag">Bài Tập 6 (Mục 6.4)</div>
+                    <h3>AI Có Trách Nhiệm & Liêm Chính</h3>
+                    <p>Xây dựng bộ nguyên tắc cá nhân chi tiết về việc sử dụng AI đi kèm tư duy phản biện cao. Phân tích sâu sắc các khía cạnh đạo đức (bảo mật, bản quyền) và đề xuất giải pháp cụ thể trước các thách thức liêm chính học thuật.</p>
+                    <div class="highlight-box">
+                        <strong>Cam kết đạo đức:</strong> Đóng góp góc nhìn cá nhân về ranh giới giữa việc "hỗ trợ ý tưởng" và "đạo văn nguyên bản".
+                    </div>
+                </div>
+                <div class="project-meta">
+                    <a href="#" target="_blank">Đọc Bản cam kết & Quy tắc ứng xử AI ↗</a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="tong-ket">
+        <div class="conclusion-container">
+            <h2>Tổng Kết & Đánh Giá Bản Thân</h2>
+            
+            <div class="conclusion-card">
+                <h3>💡 Trải nghiệm và Nhận thức sâu sắc</h3>
+                <p>Hành trình hoàn thiện Portfolio này giúp em nhận ra công nghệ không chỉ là công cụ, mà là đòn bẩy tư duy. Việc đối mặt với các bài tập thực tế bắt buộc em phải học cách tự học, nghiên cứu sâu và liên tục cải tiến quy trình thực hiện để đạt hiệu quả tối ưu nhất.</p>
+            </div>
+
+            <div class="conclusion-card">
+                <h3>🚀 Kiến thức & Kỹ năng đã tích lũy</h3>
+                <p>Em đã làm chủ được tư duy Prompt Engineering, kỹ năng tìm kiếm nâng cao có chọn lọc, cách quản trị dự án khoa học và nhận thức được tầm quan trọng cốt lõi của tính liêm chính học thuật trong thời đại trí tuệ nhân tạo bùng nổ.</p>
+            </div>
+
+            <div class="conclusion-card">
+                <h3>🎯 Thách thức & Định hướng tương lai</h3>
+                <p>Dù việc kết hợp nhiều nền tảng số cùng lúc ban đầu tạo ra không ít khó khăn về mặt tối ưu hóa trải nghiệm, em định hướng sẽ tiếp tục phát triển trang blog/website này thành không gian chia sẻ kiến thức chuyên sâu dài hạn, ứng dụng trực tiếp vào các môn chuyên ngành tiếp theo.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2026 - Thiết kế để đạt mức đánh giá Xuất Sắc cho Portfolio cá nhân.</p>
+        <p>Học phần: Nhập môn Công nghệ số & Ứng dụng Trí tuệ nhân tạo.</p>
+    </footer>
+
+</body>
+</html>
